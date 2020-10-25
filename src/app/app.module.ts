@@ -21,6 +21,7 @@ import {CoreModule} from "./core/core.module";
   imports: [
     BrowserModule,
     AppRoutingModule,
+    CoreModule, // Local App Core Module
     BrowserAnimationsModule
   ],
   providers: [],
