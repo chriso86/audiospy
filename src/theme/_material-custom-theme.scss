@@ -1,0 +1,23 @@
+@import "variables/palette";
+@import '../../node_modules/@angular/material/theming';
+
+$audiospy-app-primary: mat-palette($audiospy-tufts-blue-palette);
+$audiospy-app-accent:  mat-palette($audiospy-black-coffee-palette, A200, A100, A400);
+
+$audiospy-typography: mat-typography-config(
+  $font-family: '"Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace',
+  $headline: mat-typography-level(32px, 48px, 700),
+  $body-1: mat-typography-level(16px, 24px, 500)
+);
+
+// Be sure that you only ever include this mixin once!
+@include mat-core($audiospy-typography);
+
+$audiospy-app-theme: mat-light-theme((
+  color: (
+    primary: $audiospy-app-primary,
+    accent: $audiospy-app-accent
+  )
+));
+
+@include angular-material-theme($audiospy-app-theme);
