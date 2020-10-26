@@ -1,0 +1,61 @@
+@import "../variables/colors";
+@import "../variables/palette";
+@import "../variables/sizes";
+
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: $header-height;
+  background: $spotify-black;
+
+  .app-logo {
+    position: relative;
+    display: inline-block;
+    height: $header-height;
+    margin-left: $standard-margin;
+
+    img {
+      max-height: $header-height - ($standard-padding * 2.6);
+      margin-top: $standard-margin / 2;
+    }
+
+    &__title {
+      width: 100%;
+      text-align: center;
+      color: map-get($audiospy-black-coffee-palette, 200);
+      line-height: $standard-margin;
+      font-size: 1.25em;
+
+      .blue-letter {
+        color: $audiospy-tufts-blue;
+      }
+
+      .highlighted {
+        color: $audiospy-timberwolf;
+      }
+    }
+  }
+
+  .app-search {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: $search-width;
+    margin-top: (((($standard-padding / 1.5) * 2) + 1.25rem) / 2) * -1;
+    margin-left: ($search-width / 2) * -1;
+
+    input {
+      width: 100%;
+      padding: $standard-padding / 1.5;
+      -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+      -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+      box-sizing: border-box;         /* Opera/IE 8+ */
+      font-size: 1.25em;
+      border: $standard-border solid $audiospy-tufts-blue;
+      border-radius: $standard-padding;
+      color: $audiospy-black-coffee;
+    }
+  }
+}

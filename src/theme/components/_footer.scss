@@ -1,0 +1,12 @@
+@import "../variables/colors";
+@import "../variables/sizes";
+
+.app-footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: $standard-padding 0;
+  text-align: center;
+  background-color: $spotify-black;
+  color: $audiospy-timberwolf;
+}

@@ -1,0 +1,12 @@
+@import "../variables/font";
+@import "../variables/sizes";
+
+.app-container {
+  position: absolute;
+  top: $header-height;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - #{$header-height} - (#{$base-line-height} + #{$standard-padding * 2}));
+  overflow-y: auto;
+  overflow-x: hidden;
+}
