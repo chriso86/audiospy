@@ -8,9 +8,12 @@ import {MatInputModule} from "@angular/material/input";
 import {BaseRestService} from "./gateways/base-rest.service";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
+import {AppNgxsModule} from "./app-ngxs.module";
+import {ImageService} from "./images/image.service";
 
 @NgModule({
   imports: [
+    AppNgxsModule,
     HttpClientModule,
     MatInputModule,
     FormsModule
@@ -27,7 +30,8 @@ import {FormsModule} from "@angular/forms";
     SpotifyGateway,
     IpstackGateway,
     MarketService,
-    BaseRestService
+    BaseRestService,
+    ImageService
   ]
 })
 export class CoreModule {

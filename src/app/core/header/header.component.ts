@@ -1,9 +1,10 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
 import {fromEvent} from "rxjs";
 import {debounceTime, distinctUntilChanged, filter, tap} from "rxjs/operators";
 import {Store} from "@ngxs/store";
 import {SearchSpotify} from "../../app-state/spotify/spotify.actions";
 import {SearchSpotifyRequest} from "../gateways/spotify/interfaces/search/search-spotify.request";
+import {Navigate} from "@ngxs/router-plugin";
 
 @Component({
   selector: 'app-header',
@@ -14,16 +15,17 @@ export class HeaderComponent implements AfterViewInit {
 
   @ViewChild('appSearch') appSearch: ElementRef;
 
-  constructor(private store: Store) { }
+  constructor(private store: Store) {
+  }
 
   ngAfterViewInit() {
     // server-side search
-    fromEvent(this.appSearch.nativeElement,'keyup')
+    fromEvent(this.appSearch.nativeElement, 'keyup')
       .pipe(
         filter(Boolean),
-        debounceTime(150),
+        debounceTime(250),
         distinctUntilChanged(),
-        tap((text: string) => {
+        tap(() => {
           const query = this.searchTerm;
           const request: SearchSpotifyRequest = {
             q: query,
@@ -35,7 +37,10 @@ export class HeaderComponent implements AfterViewInit {
             return;
           }
 
-          this.store.dispatch(new SearchSpotify(request))
+          this.store.dispatch(new Navigate(['/search']))
+            .subscribe(() => {
+              this.store.dispatch(new SearchSpotify(request))
+            });
         })
       )
       .subscribe();

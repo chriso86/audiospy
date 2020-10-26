@@ -1,42 +1,36 @@
 import {Component, OnInit} from '@angular/core';
-import {Select} from "@ngxs/store";
+import {Select, Store} from "@ngxs/store";
 import {Observable} from "rxjs";
 import {SpotifyState} from "../../app-state/spotify/spotify.state";
 import {ArtistResponse} from "../../core/gateways/spotify/interfaces/search/artist.response";
+import {Navigate} from "@ngxs/router-plugin";
+import {ImageService} from "../../core/images/image.service";
 import {ImageResponse} from "../../core/gateways/spotify/interfaces/image.response";
-import {BrowserHelper} from "../../helpers/browser.helper";
-import {SCREEN_BREAKPOINTS} from "../../core/app-constants";
-import {ArrayHelper} from "../../helpers/array.helper";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html'
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
   @Select(SpotifyState.results) results$: Observable<ArtistResponse[]>;
 
-  constructor() {
-  }
-
-  ngOnInit(): void {
+  constructor(
+    private store: Store,
+    private imageService: ImageService
+  ) {
   }
 
   getImageForArtist(images: ImageResponse[]) {
-    const browserWidth = BrowserHelper.getWidth();
-    const isMobile = browserWidth <= SCREEN_BREAKPOINTS.sm;
+    return this.imageService.getImageForArtist(images);
+  }
 
-    if (!images || !images.length) {
-      return null;
+  selectArtist(event: MouseEvent, artist: ArtistResponse) {
+    event.preventDefault();
+
+    const artistId = artist.id;
+
+    if (artistId) {
+      this.store.dispatch(new Navigate([`/artist/${artistId}`]))
     }
-
-    const smallest = images.reduce((smallest: ImageResponse, image: ImageResponse) => {
-      return image.width < smallest.width ? image : smallest;
-    }, images[0]);
-
-    if (smallest) {
-      return smallest.url;
-    }
-
-    return false;
   }
 }

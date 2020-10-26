@@ -54,8 +54,9 @@ export class SpotifyGateway {
     const url = `${this._baseUrl}/artists/${id}/albums`
     const options: GetAlbumsForArtistRequest = {
       market: this.marketService.getCountryCode(),
+      include_groups: 'album,single',
       limit: PAGE_SIZE,
-      offset: (offset)
+      offset: offset || 0
     };
 
     return this.baseRestService.get<GetAlbumsForArtistRequest, GetAlbumsForArtistResponse>(url, options);

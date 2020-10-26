@@ -1,0 +1,11 @@
+@import "../variables/palette";
+@import "../variables/sizes";
+
+.app-no-results {
+  width: 100%;
+  font-size: 1.5em;
+  line-height: 3em;
+  color: map-get($audiospy-black-coffee-palette, 300);
+  text-align: center;
+  padding: $standard-padding * 2;
+}

@@ -1,13 +1,24 @@
-<mat-selection-list [multiple]="false"
-                    class="app-list">
+<mat-nav-list *ngIf="(results$ | async).length"
+              class="app-list">
 
-  <mat-list-option *ngFor="let artist of (results$ | async)"
-                   [value]="artist.id">
+  <a mat-list-item
+     href
+     *ngFor="let artist of (results$ | async)"
+     (click)="selectArtist($event, artist)">
+
+    <!-- Artist Profile Image or a local placeholder from assets -->
     <img matListAvatar
          [src]="getImageForArtist(artist.images) || '../assets/unknown-artist-512.png'"
          [alt]="artist.name + ' image'" />
 
-    <span>{{ artist.name }}</span>
-  </mat-list-option>
+    <!-- Artist name -->
+    <span class="app-list__artist-name">{{ artist.name }}</span>
 
-</mat-selection-list>
+  </a>
+
+</mat-nav-list>
+
+<section *ngIf="!(results$ | async).length"
+         class="app-no-results">
+  No results here, try to search for something...
+</section>

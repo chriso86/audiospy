@@ -8,9 +8,13 @@ import {AlbumComponent} from './pages/album/album.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {CoreModule} from "./core/core.module";
 import {MatListModule} from "@angular/material/list";
-import {AppNgxsModule} from "./app-ngxs.module";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {JWTInterceptor} from "./app.interceptor";
+import {MatCardModule} from "@angular/material/card";
+import {MatButtonModule} from "@angular/material/button";
+import {AppResolver} from "./app.resolver";
+import {MarketService} from "./core/g11n/i18n/market.service";
+import {MatGridListModule} from "@angular/material/grid-list";
 
 @NgModule({
   declarations: [
@@ -22,16 +26,18 @@ import {JWTInterceptor} from "./app.interceptor";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AppNgxsModule,
     MatListModule,
+    MatCardModule,
+    MatButtonModule,
     CoreModule, // Local App Core Module
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatGridListModule
   ],
   providers: [
     {
-      provide : HTTP_INTERCEPTORS,
+      provide: HTTP_INTERCEPTORS,
       useClass: JWTInterceptor,
-      multi   : true,
+      multi: true,
     },
   ],
   bootstrap: [AppComponent]

@@ -7,15 +7,19 @@ import {ArtistResponse} from "../../core/gateways/spotify/interfaces/search/arti
 import {GetAlbumsForArtistResponse} from "../../core/gateways/spotify/interfaces/artist-albums/get-albums-for-artist.response";
 import {patch, updateItem} from "@ngxs/store/operators";
 import {tap} from "rxjs/operators";
+import {ArtistAlbumResponse} from "../../core/gateways/spotify/interfaces/artist-albums/artist-album.response";
 
+// Working memory
 export class SpotifyStateModel {
   public access_token: string;
   public results: ArtistResponse[];
+  public albums: ArtistAlbumResponse[];
 }
 
 const defaults = {
   access_token: '',
-  results: []
+  results: [],
+  albums: []
 };
 
 @State<SpotifyStateModel>({
@@ -35,6 +39,11 @@ export class SpotifyState {
   @Selector()
   public static results(state: SpotifyStateModel) {
     return state.results;
+  }
+
+  @Selector()
+  public static albums(state: SpotifyStateModel) {
+    return state.albums;
   }
 
   @Action(AuthorizeSpotify)
@@ -73,13 +82,10 @@ export class SpotifyState {
 
     this.spotifyGateway.getArtistAlbumsByArtistId(id, offset)
       .subscribe((response: GetAlbumsForArtistResponse) => {
-        patch({
+        setState({
           ...state,
-          results: updateItem<ArtistResponse>(
-            (artist: ArtistResponse) => artist.id === id,
-            patch({albums: response.items})
-          )
-        })
+          albums: response.items
+        });
       });
   }
 }

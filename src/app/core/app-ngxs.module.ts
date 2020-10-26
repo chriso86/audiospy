@@ -1,9 +1,10 @@
 import {NgModule} from "@angular/core";
 import {NgxsModule} from "@ngxs/store";
-import {NgxsRouterPluginModule} from "@ngxs/router-plugin";
+import {NgxsRouterPluginModule, RouterStateSerializer} from "@ngxs/router-plugin";
 import {NgxsReduxDevtoolsPluginModule} from "@ngxs/devtools-plugin";
-import {SpotifyState} from "./app-state/spotify/spotify.state";
-import {environment} from "../environments/environment";
+import {SpotifyState} from "../app-state/spotify/spotify.state";
+import {environment} from "../../environments/environment";
+import {CustomRouterStateSerializer} from "./router/custom-router-state.serializer";
 
 @NgModule({
   imports: [
@@ -15,6 +16,12 @@ import {environment} from "../environments/environment";
     NgxsModule,
     NgxsRouterPluginModule,
     NgxsReduxDevtoolsPluginModule
+  ],
+  providers: [
+    {
+      provide: RouterStateSerializer,
+      useClass: CustomRouterStateSerializer
+    }
   ]
 })
 export class AppNgxsModule {
