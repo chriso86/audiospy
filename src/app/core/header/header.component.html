@@ -1,0 +1,18 @@
+<header class="app-header">
+  <section class="app-logo">
+    <img src="/assets/audiospy-logo.svg"
+         alt="AudioSpy Logo">
+
+    <div class="app-logo__title">
+      <span class="blue-letter">A</span>udio<span class="highlighted">Spy</span>
+    </div>
+  </section>
+
+  <section class="app-search">
+    <input #appSearch
+           [(ngModel)]="searchTerm"
+           matInput
+           type="text"
+           placeholder="Find your flavor..." />
+  </section>
+</header>

@@ -21,8 +21,9 @@ export class BaseRestService {
       this.throwRequestError(HttpMethodEnum.GET, url, params);
     }
 
+    const httpParams = this.mapHttpParams(params);
     const options = {
-      params: new HttpParams(params),
+      params: httpParams,
       headers: headers || null
     };
 
@@ -32,6 +33,7 @@ export class BaseRestService {
   public post<TRequest, TResponse>(
     url: string,
     data: TRequest,
+    params?: HttpParams,
     headers?: HttpHeaders
   ): Observable<TResponse> {
     const isValidRequest = this.isValidRequest(data, url, HttpMethodEnum.POST);
@@ -41,6 +43,7 @@ export class BaseRestService {
     }
 
     const options = {
+      params: params || null,
       headers: headers || null
     };
 
@@ -69,5 +72,13 @@ export class BaseRestService {
 
   private throwRequestError<TRequest>(method: string, url: string, object: TRequest) {
     throw new Error(`The request object was incorrect for request "[${method}] ${url}":\r\n${JSON.stringify(object)}`);
+  }
+
+  private mapHttpParams(params: any): HttpParams {
+    return Object.keys(params).reduce((httpParams: HttpParams, key: string) => {
+      httpParams = httpParams.append(key, params[key]);
+
+      return httpParams;
+    }, new HttpParams());
   }
 }

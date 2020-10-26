@@ -1,4 +1,5 @@
 export enum SpotifyActionEnum {
+  Authorize = 'Authorize',
   SearchSpotify = 'Search Spotify',
   SelectArtist = 'Select Artist',
   SelectAlbum = 'Select Album',

@@ -1,18 +1,26 @@
 import {Injectable} from "@angular/core";
-import {geoip2} from "../../../../main";
+import {IpstackGateway} from "../../gateways/ipstack/ipstack.gateway";
+import {tap} from "rxjs/operators";
+import {Observable} from "rxjs";
 
 @Injectable()
 export class MarketService {
   private _country_code: string;
 
-  public async getUserLocation(): Promise<any> {
-    return geoip2.country((response: { country: { iso_code: string }}) => {
-      if (response && response.country && response.country.iso_code) {
-        this._country_code = response.country.iso_code;
-      }
-    }, (error) => {
-      throw new Error('Failed to load the user\'s location');
-    });
+  constructor(private ipstackGateway: IpstackGateway) {
+  }
+
+  public getUserLocation(): Observable<{ country_code: string }> {
+    return this.ipstackGateway.getAuthForIpstack()
+      .pipe(
+        tap((response: { country_code: string }) => {
+          if (!response || !response.country_code) {
+            throw new Error('Could not load a valid country code matching this IP Address');
+          }
+
+          this._country_code = response.country_code;
+        })
+      );
   }
 
   public getCountryCode(): string {

@@ -1,1 +1,13 @@
-<p>home works!</p>
+<mat-selection-list [multiple]="false"
+                    class="app-list">
+
+  <mat-list-option *ngFor="let artist of (results$ | async)"
+                   [value]="artist.id">
+    <img matListAvatar
+         [src]="getImageForArtist(artist.images) || '../assets/unknown-artist-512.png'"
+         [alt]="artist.name + ' image'" />
+
+    <span>{{ artist.name }}</span>
+  </mat-list-option>
+
+</mat-selection-list>
