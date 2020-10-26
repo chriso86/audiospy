@@ -1,3 +1,5 @@
+![Deploy to Firebase Hosting on PR](https://github.com/chriso86/audiospy/workflows/Deploy%20to%20Firebase%20Hosting%20on%20PR/badge.svg)
+
 # Audiospy
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.2.0.
