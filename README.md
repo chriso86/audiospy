@@ -1,4 +1,5 @@
 ![Deploy to Firebase Hosting on PR](https://github.com/chriso86/audiospy/workflows/Deploy%20to%20Firebase%20Hosting%20on%20PR/badge.svg)
+https://img.shields.io/codefactor/grade/github/chriso86/audiospy/main
 
 # Audiospy
 
